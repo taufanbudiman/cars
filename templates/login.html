@@ -1,0 +1,15 @@
+{% if messages %}
+    <div>
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+<form class="" method="POST">
+    {% csrf_token %}
+    <input type="text" value="" id="pengguna" name="username" />
+    <input type="password" value="" id="password" name="password" />
+    <button type="submit">Login</button>
+</form>  

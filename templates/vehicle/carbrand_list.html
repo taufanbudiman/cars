@@ -1,0 +1,38 @@
+<a href="{% url 'vehicle:carbrand_list' %}">Car Brand</a> | <a href="{% url 'vehicle:carmodel_list' %}">Car Model</a> | <a href="{% url 'logout' %}">Logout</a>
+<h1>Car Brand</h1>
+<a href="{% url 'vehicle:carbrand_add' %}">add</a>
+{% if messages %}
+    <div>
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+<ul>
+{% for carbrand in object_list %}
+    <li>{{ carbrand.code }} - {{ carbrand.desc }} <a href="{% url 'vehicle:carbrand_detail' carbrand.id %}">detail</a> | <a href="{% url 'vehicle:carbrand_update' carbrand.id %}">update</a> | 
+        <a href="{% url 'vehicle:carbrand_delete' carbrand.id %}">delete</a> </li>
+{% empty %}
+    <li>No Car Brand yet.</li>
+{% endfor %}
+</ul>
+
+{% if is_paginated %}
+<ul class="pagination">
+{% if page_obj.has_previous %}
+    <li>
+        <span><a href="?page={{ page_obj.previous_page_number }}">Previous</a></span>
+    </li>
+{% endif %}
+    <li class="">
+        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+    </li>
+{% if page_obj.has_next %}
+    <li>
+        <span><a href="?page={{ page_obj.next_page_number }}">Next</a></span>
+    </li>
+{% endif %}
+</ul>
+{% endif %}
